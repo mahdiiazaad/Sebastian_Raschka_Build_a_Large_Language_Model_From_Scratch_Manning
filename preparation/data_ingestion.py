@@ -1,9 +1,9 @@
 import os
 import torch
-import pathlib
+import tiktoken
 from pathlib import Path
 from torch.utils.data import Dataset, DataLoader
-import tiktoken
+
 
 class GPTDatasetV1(Dataset):
   def __init__(self, text_path: Path, tokenizer: tiktoken.Encoding, max_length, stride):
