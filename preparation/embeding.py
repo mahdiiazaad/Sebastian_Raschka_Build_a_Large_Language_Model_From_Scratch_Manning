@@ -1,8 +1,5 @@
 import torch
 import torch.nn as nn
-from pathlib import Path
-from data_ingestion import create_data_loader
-
 
 class TransformerInput(nn.Module):
   def __init__(self, vocab_size, context_length, embedding_dim):

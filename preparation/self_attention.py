@@ -12,9 +12,9 @@ class MultiHeadAttention(nn.Module):
     self.num_heads = num_heads
     self.heads_dim = out_dim // num_heads
     
-    self.w_query = nn.Linear(in_dim, out_dim)
-    self.w_key = nn.Linear(in_dim, out_dim)
-    self.w_value = nn.Linear(in_dim, out_dim)
+    self.w_query = nn.Linear(in_dim, out_dim, bias=qkv_bias)
+    self.w_key = nn.Linear(in_dim, out_dim, bias=qkv_bias)
+    self.w_value = nn.Linear(in_dim, out_dim, bias=qkv_bias)
     
     self.register_buffer(
       "mask",
@@ -25,6 +25,7 @@ class MultiHeadAttention(nn.Module):
     )
     
     self.dropout = nn.Dropout(dropouts)
+    self.out_proj = nn.Linear(out_dim, out_dim)
     
   def forward(self, x:torch.tensor):
     
@@ -64,6 +65,8 @@ class MultiHeadAttention(nn.Module):
     # we need to use contgous function because we have already used transpose
     # and now we want to use some sort of reshaping on the object 
     context_vector = context_vector.contiguous().view(b, num_tokens, self.out_dim)
+    # mix information across the concatenated heads
+    context_vector = self.out_proj(context_vector)
     return context_vector
   
   

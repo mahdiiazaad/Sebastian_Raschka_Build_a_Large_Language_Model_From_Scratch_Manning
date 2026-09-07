@@ -6,6 +6,10 @@ from torch.utils.data import Dataset, DataLoader
 
 
 class GPTDatasetV1(Dataset):
+  """
+Initialize the GPT dataset by reading, tokenizing, and splitting text
+    into overlapping input-target sequences.
+  """
   def __init__(self, text_path: Path, tokenizer: tiktoken.Encoding, max_length, stride):
     super().__init__()
     
