@@ -1,8 +1,8 @@
 import torch.nn as nn
 
-from GPT_config import GPT_CONFIG_124M
-from layer_normalization import LayerNorm
-from transformer_block import TransformerBlock
+from .GPT_config import GPT_CONFIG_124M
+from .layer_normalization import LayerNorm
+from .transformer_block import TransformerBlock
 from preparation.embeding import TransformerInput
 
 # config = GPT_CONFIG_124M()

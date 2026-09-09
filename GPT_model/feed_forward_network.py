@@ -1,5 +1,5 @@
 import torch.nn as nn
-from GPT_config import GPT_CONFIG_124M
+from .GPT_config import GPT_CONFIG_124M
 
 class FeedForward(nn.Module):
   def __init__(self, config:GPT_CONFIG_124M):

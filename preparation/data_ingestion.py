@@ -7,16 +7,13 @@ from torch.utils.data import Dataset, DataLoader
 
 class GPTDatasetV1(Dataset):
   """
-Initialize the GPT dataset by reading, tokenizing, and splitting text
+    Initialize the GPT dataset by reading, tokenizing, and splitting text
     into overlapping input-target sequences.
   """
-  def __init__(self, text_path: Path, tokenizer: tiktoken.Encoding, max_length, stride):
+  def __init__(self, raw_text, tokenizer: tiktoken.Encoding, max_length, stride):
     super().__init__()
     
     self.input_ids, self.target_ids = [], []
-    
-    with open(text_path, 'r', encoding='utf-8') as f:
-      raw_text = f.read()
       
         
     token_ids = tokenizer.encode(raw_text)
@@ -35,8 +32,10 @@ Initialize the GPT dataset by reading, tokenizing, and splitting text
   def __getitem__(self, index):
     return torch.tensor(self.input_ids[index]), torch.tensor(self.target_ids[index])
   
+  
+#------------------------
 def create_data_loader(
-  text_path: Path,
+  raw_text,
   batch_size=4,
   max_length=256,
   stride=128,
@@ -47,7 +46,7 @@ def create_data_loader(
   
   tokenizer = tiktoken.get_encoding('gpt2')
   
-  data_set = GPTDatasetV1(text_path=text_path,
+  data_set = GPTDatasetV1(raw_text=raw_text,
                           tokenizer=tokenizer,
                           max_length=max_length,
                           stride=stride)

@@ -1,9 +1,9 @@
 import torch.nn as nn
 
 
-from GPT_config import GPT_CONFIG_124M
-from layer_normalization import LayerNorm
-from feed_forward_network import FeedForward
+from .GPT_config import GPT_CONFIG_124M
+from .layer_normalization import LayerNorm
+from .feed_forward_network import FeedForward
 from preparation.self_attention import MultiHeadAttention
 # what we need:
 # 1. multihead attention class
